@@ -11,6 +11,7 @@ minehook.add_hook("test",minehook.Command("say Hello World!"))
 minehook.run()
 ~~~
 The result:
+
 ![Demonstration of the included code.](https://i.imgur.com/v0MtvBm.png)
 
 JSON Keys can be passed to `add_hook` as well:
@@ -24,4 +25,5 @@ Now we can pass the following JSON to our webhook:
 }
 ~~~
 And the result will be:
+
 ![Demonstration of the included code.](https://i.imgur.com/UORyxHR.png)
