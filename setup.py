@@ -11,14 +11,15 @@ def read(filename):
 
 
 MAIN_AUTHORS = ["Ammar Askar <ammar@ammaraskar.com>",
-                "Jeppe Klitgaard <jeppe@dapj.dk>"]
+                "Jeppe Klitgaard <jeppe@dapj.dk>",
+                "ObiDriftKenobi <gdpancake5@gmail.com"]
 
-URL = "https://github.com/ammaraskar/pyCraft"
+URL = "https://github.com/ObiDriftKenobi/minehook"
 
 setup(name="minecraft",
       version=__version__,
       description="Python MineCraft library",
-      long_description=read("README.rst"),
+      long_description=read("README.md"),
       url=URL,
       download_url=URL + "/tarball/" + __version__,
       author=", ".join(MAIN_AUTHORS),
@@ -36,8 +37,9 @@ setup(name="minecraft",
                 "minecraft.networking.packets.serverbound.login",
                 "minecraft.networking.packets.serverbound.play",
                 "minecraft.networking.types",
+                "minehook"
                 ],
-      keywords=["MineCraft", "networking", "pyCraft", "minecraftdev", "mc"],
+      keywords=["MineCraft", "networking", "pyCraft", "minecraftdev", "mc","minehook","webhook"],
       classifiers=["Development Status :: 3 - Alpha",
                    "Intended Audience :: Developers",
                    "License :: OSI Approved :: Apache Software License",

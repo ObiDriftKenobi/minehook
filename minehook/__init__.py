@@ -1,19 +1,14 @@
-import getpass
-import sys
-import re
-from optparse import OptionParser
-
-from minecraft import authentication
-from minecraft.exceptions import YggdrasilError
+"""
+Minehook is a Python library utilizing Flask and PyCraft that simplifies making webhook actions in your minecraft world.
+"""
+from threading import Thread
+from flask import Flask, abort, request
 from minecraft.networking.connection import Connection
 from minecraft.networking.packets import Packet, clientbound, serverbound
-from minecraft.compat import input
-
-from threading import Thread
-
-from flask import Flask, abort
 
 webserver = Flask("")
+
+version = "3"
 
 class Parameter:
     def __init__(self, command_parameter: str):
@@ -60,19 +55,31 @@ def __minecraft_chat():
 
     connection.connect()
 
-def __packet_send(command):
+def __packet_send(command,jsonData):
     packet = serverbound.play.ChatPacket()
+    commandArgs = []
+    for arg in commands[command]["params"]:
+        if isinstance(arg,Parameter):
+            commandArgs.append(arg.content)
+        elif isinstance(arg,JSONKey):
+            commandArgs.append(jsonData[arg.content])
+
     if isinstance(commands[command]["action"],Command):
         packet.message = "/" + commands[command]["action"].content
+
     elif isinstance(commands[command]["action"],ChatMessage):
         packet.message = commands[command]["action"].content
+
+    packet.message = packet.message + " " + " ".join(commandArgs)
     connection.write_packet(packet)
 
 def run():
     @webserver.route('/<command>')
     def execute(command):
         if not command in commands: abort(404)
-        send = Thread(target=__packet_send,args=((command),))
+        jsonData = request.get_json()
+        print(jsonData)
+        send = Thread(target=__packet_send,args=((command),jsonData,))
         send.start()
         return "Done!"
     
