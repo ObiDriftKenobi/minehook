@@ -58,11 +58,12 @@ def __minecraft_chat():
 def __packet_send(command,jsonData):
     packet = serverbound.play.ChatPacket()
     commandArgs = []
-    for arg in commands[command]["params"]:
-        if isinstance(arg,Parameter):
-            commandArgs.append(arg.content)
-        elif isinstance(arg,JSONKey):
-            commandArgs.append(jsonData[arg.content])
+    if "params" in commands[command]:
+        for arg in commands[command]["params"]:
+            if isinstance(arg,Parameter):
+                commandArgs.append(arg.content)
+            elif isinstance(arg,JSONKey):
+                commandArgs.append(jsonData[arg.content])
 
     if isinstance(commands[command]["action"],Command):
         packet.message = "/" + commands[command]["action"].content
