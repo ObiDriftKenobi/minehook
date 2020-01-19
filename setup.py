@@ -1,4 +1,4 @@
-from distutils.core import setup
+from setuptools import setup
 from minecraft import __version__
 
 
@@ -39,6 +39,12 @@ setup(name="minecraft",
                 "minecraft.networking.types",
                 "minehook"
                 ],
+      install_requires=[
+          "flask",
+          "cryptography",
+          "requests",
+          "future"
+          ],
       keywords=["MineCraft", "networking", "pyCraft", "minecraftdev", "mc","minehook","webhook"],
       classifiers=["Development Status :: 3 - Alpha",
                    "Intended Audience :: Developers",
